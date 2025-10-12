@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mariting Logo Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        #logoCanvas {
+            display: block;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            background: white;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            color: white;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+        }
+        
+        .info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #6366f1;
+        }
+        
+        .info h3 {
+            margin-top: 0;
+            color: #6366f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Mariting Logo Generator</h1>
+        
+        <canvas id="logoCanvas"></canvas>
+        
+        <div class="buttons">
+            <button onclick="downloadLogo('png')">📥 Download PNG</button>
+            <button onclick="downloadLogo('jpg')">📥 Download JPG</button>
+        </div>
+        
+        <div class="info">
+            <h3>✅ Logo Created Successfully!</h3>
+            <p><strong>Instructions:</strong></p>
+            <ol>
+                <li>Click "Download PNG" or "Download JPG" above</li>
+                <li>The logo will be saved to your Downloads folder</li>
+                <li>Move the file to <code>Mariting Beta 3/Logo/</code> folder</li>
+                <li>You can now use it in your application!</li>
+            </ol>
+            <p><strong>Specifications:</strong></p>
+            <ul>
+                <li>Size: 400 x 100 pixels</li>
+                <li>Font: Poppins ExtraBold (800)</li>
+                <li>Gradient: Indigo (#6366f1) to Pink (#ec4899)</li>
+                <li>Format: PNG (transparent) or JPG (white background)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        const canvas = document.getElementById('logoCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size
+        canvas.width = 400;
+        canvas.height = 100;
+        
+        function drawLogo() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Create gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            gradient.addColorStop(0, '#6366f1');
+            gradient.addColorStop(1, '#ec4899');
+            
+            // Set text properties
+            ctx.font = 'bold 60px Poppins, sans-serif';
+            ctx.fillStyle = gradient;
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center';
+            
+            // Draw text
+            ctx.fillText('Mariting', canvas.width / 2, canvas.height / 2);
+        }
+        
+        function downloadLogo(format) {
+            let downloadCanvas = canvas;
+            
+            if (format === 'jpg') {
+                // For JPG, create a temporary canvas with white background
+                downloadCanvas = document.createElement('canvas');
+                downloadCanvas.width = canvas.width;
+                downloadCanvas.height = canvas.height;
+                const tempCtx = downloadCanvas.getContext('2d');
+                
+                // Fill with white
+                tempCtx.fillStyle = 'white';
+                tempCtx.fillRect(0, 0, downloadCanvas.width, downloadCanvas.height);
+                
+                // Draw logo on top
+                tempCtx.drawImage(canvas, 0, 0);
+            }
+            
+            // Create download link
+            const link = document.createElement('a');
+            link.download = `mariting_logo.${format}`;
+            
+            if (format === 'png') {
+                link.href = downloadCanvas.toDataURL('image/png');
+            } else if (format === 'jpg') {
+                link.href = downloadCanvas.toDataURL('image/jpeg', 1.0);
+            }
+            
+            link.click();
+            
+            // Show success message
+            alert(`✅ Logo saved as mariting_logo.${format}
+            
+Check your Downloads folder!`);
+        }
+        
+        // Draw logo after fonts are loaded
+        document.fonts.ready.then(() => {
+            drawLogo();
+        });
+        
+        // Fallback: draw after 1 second
+        setTimeout(drawLogo, 1000);
+    </script>
+</body>
+</html>

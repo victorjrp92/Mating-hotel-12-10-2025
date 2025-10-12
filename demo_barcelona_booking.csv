@@ -1,0 +1,26 @@
+MARITING - HOTEL COMPETITION ANALYSIS TEMPLATE,,,,,,,,,
+,,,,,,,,,
+Platform:,Booking.com,,,,,,,,
+,,,,,,,,,
+SINGLE ROOMS PRICING ANALYSIS,,,,,,,,,
+Hotel Name,Rating,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,Reviews Num
+[Barcelona Beach Hotel],7.1,€125,€125,€130,€140,€165,€195,€175,892
+Hotel Costa Brava,8.3,€110,€110,€115,€125,€145,€175,€155,654
+Seaside Inn Barcelona,7.9,€95,€95,€100,€110,€130,€155,€140,423
+Mediterranean Palace,9.1,€175,€175,€180,€190,€220,€265,€240,1243
+Budget Beach Stay,7.2,€75,€75,€80,€85,€100,€120,€105,287
+Coastal Comfort Hotel,8.5,€130,€130,€135,€145,€170,€200,€180,756
+Barcelona Bay Resort,8.9,€155,€155,€160,€170,€200,€235,€215,1089
+,,,,,,,,,
+,,,,,,,,,
+DOUBLE ROOMS PRICING ANALYSIS,,,,,,,,,
+Hotel Name,Rating,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,Reviews Num
+[Barcelona Beach Hotel],8.7,€165,€165,€170,€180,€210,€245,€225,892
+Hotel Costa Brava,8.3,€145,€145,€150,€160,€185,€220,€200,654
+Seaside Inn Barcelona,7.9,€125,€125,€130,€140,€165,€195,€180,423
+Mediterranean Palace,9.1,€220,€220,€225,€240,€275,€320,€295,1243
+Budget Beach Stay,7.2,€100,€100,€105,€115,€135,€160,€145,287
+Coastal Comfort Hotel,8.5,€170,€170,€175,€185,€215,€250,€230,756
+Barcelona Bay Resort,8.9,€195,€195,€200,€215,€250,€290,€270,1089
+,,,,,,,,,
+Contact: support@mariting.com,,,,,,,,,
