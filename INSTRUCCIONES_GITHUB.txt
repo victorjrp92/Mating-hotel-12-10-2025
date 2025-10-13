@@ -1,0 +1,63 @@
+# 🚀 COMANDOS PARA BACKUP A GITHUB
+
+Victor, ejecuta estos comandos UNO POR UNO en tu terminal:
+
+## 1️⃣ Ir al directorio del proyecto
+```bash
+cd "/Users/victorjrp92/Desktop/Mariting Beta 3"
+```
+
+## 2️⃣ Ver el estado actual
+```bash
+git status
+```
+
+## 3️⃣ Agregar todos los archivos
+```bash
+git add .
+```
+
+## 4️⃣ Hacer commit con mensaje
+```bash
+git commit -m "✅ Mariting v2.2.1 - Versión estable funcionando
+
+- Templates CSV funcionales (EN, ES, DE)
+- Demo chart con 4 posiciones animadas
+- Menú reposicionado (derecha)
+- Análisis AI completo
+- Gráficos adaptativos
+- Footer 2x3 layout
+- Código limpio y probado"
+```
+
+## 5️⃣ Subir a GitHub
+```bash
+git push -u origin main
+```
+
+---
+
+## ✅ Si todo sale bien verás:
+```
+Enumerating objects: XX, done.
+Counting objects: 100% (XX/XX), done.
+Writing objects: 100% (XX/XX), done.
+To https://github.com/victorjrp92/Mating-hotel-12-10-2025.git
+ * [new branch]      main -> main
+```
+
+---
+
+## 🔗 Después podrás ver tu código en:
+https://github.com/victorjrp92/Mating-hotel-12-10-2025
+
+---
+
+## ⚠️ Si pide autenticación:
+1. Usa tu **Personal Access Token** (no tu contraseña)
+2. O configura GitHub CLI primero
+
+## 📝 Notas:
+- Los archivos en .gitignore NO se subirán (backups, archivos temporales)
+- Se subirá TODO el código funcional
+- Será tu primera versión en GitHub

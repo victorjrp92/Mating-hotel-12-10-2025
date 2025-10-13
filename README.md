@@ -1,317 +1,223 @@
-# 🏨 Mariting 2.0 - Hotel Competitive Intelligence Platform
+# 🏨 Mariting - Hotel Competitive Intelligence Platform
 
-## ✨ Overview
+**Version 2.2.1** - Modern Hotel Benchmarking Platform with AI-Powered Analysis
 
-Mariting 2.0 is a modern, AI-powered competitive intelligence platform designed specifically for hotels. With a stunning user interface and powerful analytics, it helps hotels understand their market position and optimize pricing strategies.
+![Mariting](Logo/M.png)
 
-## 🎯 Key Features
+---
 
-### 🎨 Modern Design
-- **Glassmorphism UI** - Beautiful, translucent design elements
-- **Smooth Animations** - Engaging micro-interactions throughout
-- **Responsive Layout** - Perfect experience on mobile, tablet, and desktop
-- **Dark/Light Gradients** - Eye-catching color schemes
+## 📊 What is Mariting?
 
-### 🌍 Multilingual Support
-- 🇺🇸 English
-- 🇪🇸 Spanish (Español)
-- 🇩🇪 German (Deutsch)
-- Auto-saves language preference
+Mariting is a powerful web-based platform that helps hotels analyze their competitive position in the market. Compare your hotel's pricing, ratings, and reviews against competitors across multiple booking platforms.
 
-### 📊 Advanced Analytics
-- **Scatter Plot Visualization** - See your competitive position at a glance
-- **Multi-day Analysis** - Compare all days of the week
-- **Room Type Comparison** - Analyze Single and Double rooms separately
-- **Confidence Thresholds** - Smart rating benchmarks (8.0 for 10-scale, 4.0 for 5-scale)
-- **Market Averages** - Automatic calculation of competitive benchmarks
+### ✨ Key Features
 
-### 🤖 AI-Powered Insights
-- Market position analysis
-- Strategic recommendations
-- Revenue optimization suggestions
-- Competitive intelligence
+- 📈 **Visual Competition Analysis** - See your position vs competitors in intuitive scatter plots
+- 📅 **Day-by-Day Analysis** - Analyze pricing patterns across different days of the week
+- 🛏️ **Room Type Comparison** - Compare single and double room pricing separately or together
+- 🤖 **AI Strategic Analysis** - Get AI-powered insights and recommendations
+- 🌍 **Multi-language Support** - Available in English, Spanish, and German
+- 📱 **Mobile Responsive** - Access your analysis from any device
+- 📊 **Multiple Platforms** - Support for Booking.com, Airbnb, Expedia, Google Hotels, TripAdvisor, and Trivago
 
-### 🎯 Platform Support
-- Booking.com (1-10 rating scale)
-- Airbnb (1-5 rating scale)
-- Expedia (1-5 rating scale)
-- Google Hotels (1-5 rating scale)
-- TripAdvisor (1-5 rating scale)
-- Custom platforms
+---
 
 ## 🚀 Quick Start
 
-### 1. Open the Application
-Simply open `index.html` in a modern web browser (Chrome, Firefox, Safari, Edge)
+### 1. Download Template
+Click "Download Template" and choose your language (EN/ES/DE)
 
-### 2. Select Your Language
-Click on your preferred language in the top-right corner:
-- 🇺🇸 EN
-- 🇪🇸 ES
-- 🇩🇪 DE
+### 2. Fill Your Data
+- Enter your hotel name in brackets: `[Your Hotel Name]`
+- Add competitor hotels
+- Fill in ratings (use platform's scale: 1-10 for Booking, 1-5 for Airbnb)
+- Add prices for at least one day (use same date for all hotels)
+- Include number of reviews
 
-### 3. Download Template
-Click on "Download Template" and choose your language. You'll get a CSV file pre-formatted with:
-- Platform field
-- Single room pricing section
-- Double room pricing section
-- Example data to guide you
+### 3. Upload & Analyze
+- Upload your completed CSV or Excel file
+- Select room types (Single/Double)
+- Choose days to analyze
+- Generate your competitive analysis
 
-### 4. Fill Your Data
+---
 
-#### Required Fields:
-- **Hotel Name** - Use `[Your Hotel Name]` with brackets for your main hotel
-- **Rating** - Use platform's rating scale (1-5 or 1-10)
-- **At least ONE price** - For any day of the week
-- **Number of Reviews** - Total review count
+## 📁 Project Structure
 
-#### Optional:
-- Fill all 7 days for complete weekly analysis
-- Add up to 7 competitor hotels
-- Include both Single and Double room data
+```
+Mariting Beta 3/
+├── index.html          # Main application
+├── app.js              # Core functionality
+├── Logo/               # Platform logos
+│   ├── M.png
+│   └── Plataformas/
+├── template_en.csv     # English template
+├── template_es.csv     # Spanish template
+├── template_de.csv     # German template
+└── demo_*.csv/xlsx     # Demo files
+```
 
-### 5. Upload & Analyze
-- Drag & drop your completed file or click "Browse Files"
-- Select room types to analyze (Single, Double, or both)
-- Choose to see all days or a specific day
-- Click "Generate Analysis"
+---
 
-### 6. View Results
-- Interactive scatter plots with:
-  - Your hotel highlighted in blue
-  - Competitors in pink
-  - Bubble size = number of reviews
-  - Crosshair showing market averages
-- Download charts as PNG images
+## 🎯 Supported Platforms
 
-### 7. Get AI Insights
-- Click "AI Strategic Analysis" button
-- Review your market position
-- Get strategic recommendations
-- Compare with market benchmarks
+| Platform | Rating Scale | Logo |
+|----------|--------------|------|
+| Booking.com | 1-10 | ✅ |
+| Airbnb | 1-5 | ✅ |
+| Expedia | 1-5 | ✅ |
+| Google Hotels | 1-5 | ✅ |
+| TripAdvisor | 1-5 | ✅ |
+| Trivago | 1-10 | ✅ |
 
-## 📋 Template Format
+---
 
-### CSV Structure
+## 💡 How It Works
 
+### Data Analysis
+1. **Upload** your CSV/Excel with hotel data
+2. **Automatic Detection** of platform and rating scale
+3. **Adaptive Charts** that adjust to your data range
+4. **Crosshair Analysis** showing average price and quality threshold
+
+### Customer Perception Matrix
+
+The platform analyzes your position in 6 categories:
+
+- 🌟 **Premium** - High quality, premium pricing
+- 💎 **Value Leader** - High quality, competitive pricing
+- ⚠️ **Overpriced** - Below quality threshold, high pricing
+- 💰 **Budget** - Aligned pricing and quality for budget segment
+- 🔸 **Needs Attention** - Low reviews, high pricing
+- 🔹 **Emerging Budget** - Low reviews, competitive pricing
+
+---
+
+## 🛠️ Technologies Used
+
+- **Chart.js** - Dynamic, responsive charts
+- **PapaParse** - CSV parsing
+- **SheetJS (XLSX)** - Excel file support
+- **Pure JavaScript** - No frameworks, lightweight and fast
+- **Responsive Design** - Works on all devices
+
+---
+
+## 📋 Requirements
+
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+- No installation required
+- Works offline (after first load)
+
+---
+
+## 🌐 Multi-language Support
+
+### Available Languages:
+- 🇬🇧 **English** (EN)
+- 🇪🇸 **Español** (ES)
+- 🇩🇪 **Deutsch** (DE)
+
+Language preference is automatically saved.
+
+---
+
+## 📊 Chart Features
+
+### Adaptive Scaling
+- Charts automatically adjust to your data range
+- No fixed scales - works with any price range
+- Quality threshold adapts to platform (7.9 for 10-scale, 3.9 for 5-scale)
+
+### Visual Elements
+- **Bubble Size** - Represents number of reviews
+- **Colors** - Your hotel (purple), competitors (pink)
+- **Crosshairs** - Average price (vertical) and quality threshold (horizontal)
+- **Transparent Background** - Professional export-ready charts
+
+---
+
+## 🎨 Design Highlights
+
+- Clean, modern interface
+- Turquoise accent color (#14b8a6)
+- Card-based layout
+- Smooth animations
+- Professional gradients
+
+---
+
+## 📱 Responsive Breakpoints
+
+- **Desktop**: Full layout (1024px+)
+- **Tablet**: Adapted layout (768px - 1023px)
+- **Mobile**: Stacked layout (<768px)
+
+---
+
+## 🔧 Configuration
+
+### Platform Detection
+The system automatically detects the platform from your CSV and applies:
+- Correct rating scale (1-10 or 1-5)
+- Platform logo
+- Appropriate quality thresholds
+
+### CSV Template Format
 ```csv
-MARITING - HOTEL COMPETITION ANALYSIS TEMPLATE
 Platform:,Booking.com
-
 SINGLE ROOMS PRICING ANALYSIS
-Hotel Name,Rating,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,Reviews Num
-[My Hotel],8.5,€85,€85,€85,€95,€120,€130,€110,465
-Competitor 1,7.8,€75,€75,€80,€85,€100,€115,€95,234
-Competitor 2,8.2,€90,€90,€95,€100,€125,€140,€120,567
-
-DOUBLE ROOMS PRICING ANALYSIS
-Hotel Name,Rating,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,Reviews Num
-[My Hotel],8.5,€120,€120,€120,€135,€160,€170,€145,465
-Competitor 1,7.8,€110,€110,€115,€120,€140,€155,€135,234
+Hotel Name,Rating,Monday,Tuesday,...,Reviews Num
+[Your Hotel],8.5,€85,€85,...,465
+Competitor 1,7.8,€75,€75,...,234
 ```
 
-### Important Notes:
-1. **Main Hotel**: Must be enclosed in brackets `[My Hotel Name]`
-2. **Prices**: Can use €, $, £ or no symbol - numbers only
-3. **Ratings**: Must match platform scale (1-5 or 1-10)
-4. **Empty Days**: Leave blank if no data available
-5. **Minimum**: At least ONE day with prices for analysis
+---
 
-## 🎨 Design Features
+## 📈 Version History
 
-### Color Palette
-- **Primary**: Indigo (#6366f1) - Modern and professional
-- **Secondary**: Pink (#ec4899) - Energetic and engaging
-- **Success**: Green (#10b981) - Positive actions
-- **Backgrounds**: Gradient from purple to violet
+### v2.2.1 (Current)
+- ✅ Templates CSV funcionales (EN, ES, DE)
+- ✅ Demo chart with 4 animated positions
+- ✅ Menu repositioned (right side)
+- ✅ Complete AI analysis
+- ✅ Adaptive charts
+- ✅ 2x3 footer layout
+- ✅ Clean, tested code
 
-### Typography
-- **Headings**: Poppins (bold, modern)
-- **Body**: Inter (clean, readable)
-- **Weights**: 300-800 for visual hierarchy
+### v2.2
+- Transparent chart backgrounds
+- Enhanced visual design
 
-### Animations
-- **Page Load**: Smooth fade-in and slide-down effects
-- **Hover States**: Transform and shadow transitions
-- **Button Clicks**: Ripple effect with expanding circles
-- **Modal**: Backdrop blur with slide-up content
-- **Notifications**: Slide-in from right
+### v2.1
+- Multi-language support
+- Improved UI/UX
 
-## 📊 Chart Interpretation
+---
 
-### Quadrants
+## 🤝 Contributing
 
-```
-High Rating    |
-+ Low Price    |  High Rating
-(VALUE         |  + High Price
-LEADER)        |  (PREMIUM)
----------------|---------------
-Low Rating     |  Low Rating
-+ Low Price    |  + High Price
-(BUDGET)       |  (OVERPRICED)
-```
+This is a proprietary project. For inquiries, contact: support@mariting.com
 
-### Strategic Positions
+---
 
-**🏆 Premium (Top Right)**
-- Above confidence threshold
-- Above average price
-- Strong market position
-- Maintain quality
-
-**💎 Value Leader (Top Left)**
-- Above confidence threshold
-- Below average price
-- Opportunity for price optimization
-- Excellent value perception
-
-**⚠️ Overpriced (Bottom Right)**
-- Below confidence threshold
-- Above average price
-- Risk of poor value perception
-- Improve rating or reduce price
-
-**💰 Budget (Bottom Left)**
-- Below confidence threshold
-- Below average price
-- Aligned for economy segment
-- Focus on efficiency
-
-## 🔧 Technical Details
-
-### Technologies
-- **HTML5** - Semantic markup
-- **CSS3** - Modern styling with variables
-- **JavaScript (ES6+)** - Modern, modular code
-- **Chart.js 4.4** - Beautiful, interactive charts
-- **PapaParse** - Fast CSV parsing
-- **SheetJS** - Excel file support
-
-### Browser Support
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-### File Support
-- **CSV** - Best compatibility
-- **XLSX** - Excel format
-- **XLS** - Legacy Excel format
-
-### Performance
-- Optimized animations (GPU-accelerated)
-- Lazy loading of charts
-- Efficient data parsing
-- Smooth 60fps interactions
-
-## 🎯 Best Practices
-
-### Data Collection
-1. **Same Date**: Ensure all prices are from the same date
-2. **Consistent Currency**: Use one currency for all hotels
-3. **Accurate Ratings**: Use exact platform ratings
-4. **Recent Data**: Use current market prices
-5. **Complete Reviews**: Include total review counts
-
-### Analysis
-1. **Weekly Patterns**: Analyze all days to see pricing trends
-2. **Room Comparison**: Compare Single vs Double strategies
-3. **Platform Focus**: Start with one platform, expand later
-4. **Regular Updates**: Re-analyze monthly or quarterly
-5. **Action Items**: Use AI insights to guide decisions
-
-## 📱 Mobile Experience
-
-### Optimized for Touch
-- Large, tappable buttons
-- Swipeable galleries
-- Pinch-to-zoom on charts
-- Responsive grid layouts
-
-### Adaptive Design
-- Stacked layouts on mobile
-- Larger text for readability
-- Touch-friendly controls
-- Optimized chart sizes
-
-## 🔐 Privacy & Security
-
-- **No Data Storage**: All processing happens in your browser
-- **No Server**: Files never leave your computer
-- **No Tracking**: No analytics or cookies
-- **Offline Capable**: Works without internet (after first load)
-
-## 🆘 Troubleshooting
-
-### File Won't Upload
-- Check file format (CSV or XLSX)
-- Ensure file isn't corrupted
-- Try re-saving from Excel
-- Use CSV format for compatibility
-
-### No Charts Appear
-- Verify you have valid price data
-- Check ratings are in correct range
-- Ensure main hotel is marked with `[ ]`
-- Try with template data first
-
-### Chart Looks Wrong
-- Verify all prices use same currency
-- Check rating scale matches platform
-- Ensure data is from same date
-- Review template format
-
-## 📧 Support
-
-For questions, issues, or feature requests:
-- **Email**: support@mariting.com
-- **Documentation**: See this README
-- **Template Issues**: Download fresh template
-
-## 🎉 What's New in 2.0
-
-### Design
-- ✨ Complete UI/UX redesign
-- 🎨 Modern glassmorphism aesthetic
-- 🌈 Smooth gradient animations
-- 📱 Enhanced mobile experience
-
-### Features
-- 🚀 Faster file processing
-- 📊 Better chart visualization
-- 🤖 Improved AI analysis
-- 🌍 Refined translations
-
-### Performance
-- ⚡ 50% faster load times
-- 🎯 Optimized animations
-- 💾 Reduced memory usage
-- 📉 Smaller file size
-
-## 🗺️ Roadmap
-
-### Coming Soon
-- [ ] PDF export of full reports
-- [ ] Historical data tracking
-- [ ] Multi-hotel comparison
-- [ ] Email scheduled reports
-- [ ] API integration
-- [ ] Real-time data sync
-
-### Under Consideration
-- [ ] Mobile app (iOS/Android)
-- [ ] Team collaboration features
-- [ ] Custom branding options
-- [ ] Advanced filtering
-- [ ] Competitor alerts
-
-## 📜 License
+## 📄 License
 
 © 2025 Mariting. All rights reserved.
 
 ---
 
-**Made with ❤️ for the hospitality industry**
+## 📧 Contact
 
-*Version 2.0.0 - January 2025*
+**Email**: support@mariting.com  
+**GitHub**: https://github.com/victorjrp92/Mating-hotel-12-10-2025
+
+---
+
+## 🙏 Acknowledgments
+
+Built with ❤️ for the hospitality industry.
+
+---
+
+**⭐ Star this repo if you find it useful!**
