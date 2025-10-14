@@ -26,6 +26,7 @@ const translations = {
     en: {
         nav: {
             home: 'Home',
+            about: 'About Us',
             contact: 'Contact'
         },
         hero: {
@@ -119,6 +120,7 @@ const translations = {
     es: {
         nav: {
             home: 'Inicio',
+            about: 'Acerca de',
             contact: 'Contacto'
         },
         hero: {
@@ -212,6 +214,7 @@ const translations = {
     de: {
         nav: {
             home: 'Startseite',
+            about: 'Über uns',
             contact: 'Kontakt'
         },
         hero: {
@@ -507,107 +510,118 @@ function getNestedTranslation(obj, path) {
 // TEMPLATE DOWNLOAD
 // ============================================
 function downloadTemplate() {
-    const csv = generateTemplateCSV(currentLanguage);
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
+    const templateData = generateTemplateData(currentLanguage);
     
-    link.setAttribute('href', url);
-    link.setAttribute('download', `mariting_template_${currentLanguage}.csv`);
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Create workbook
+    const wb = XLSX.utils.book_new();
+    
+    // Convert data to worksheet
+    const ws = XLSX.utils.aoa_to_sheet(templateData);
+    
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Hotel Analysis');
+    
+    // Generate Excel file and download
+    XLSX.writeFile(wb, `mariting_template_${currentLanguage}.xlsx`);
     
     showNotification(translations[currentLanguage].alerts.file_uploaded, 'success');
 }
 
-function generateTemplateCSV(lang) {
+function generateTemplateData(lang) {
     const templates = {
-        en: `MARITING - HOTEL COMPETITION ANALYSIS TEMPLATE,,,,,,,,,,
-,,,,,,,,,,
-Platform:,(e.g. Booking Airbnb Expedia Google Hotels),,,,,,,,,,
-,,,,,,,,,,
-SINGLE ROOMS PRICING ANALYSIS,,,,,,,,,,
-Hotel Name,Rating,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,Reviews Num
-[My Main Hotel],8.5,€85,€85,€85,€95,€120,€130,€110,465
-Competitor Hotel 1,,,,,,,,,
-Competitor Hotel 2,,,,,,,,,
-Competitor Hotel 3,,,,,,,,,
-Competitor Hotel 4,,,,,,,,,
-Competitor Hotel 5,,,,,,,,,
-Competitor Hotel 6,,,,,,,,,
-Competitor Hotel 7,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-DOUBLE ROOMS PRICING ANALYSIS,,,,,,,,,,
-Hotel Name,Rating,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,Reviews Num
-[My Main Hotel],8.5,€120,€120,€120,€135,€160,€170,€145,465
-Competitor Hotel 1,,,,,,,,,
-Competitor Hotel 2,,,,,,,,,
-Competitor Hotel 3,,,,,,,,,
-Competitor Hotel 4,,,,,,,,,
-Competitor Hotel 5,,,,,,,,,
-Competitor Hotel 6,,,,,,,,,
-Competitor Hotel 7,,,,,,,,,
-,,,,,,,,,,
-Contact: support@mariting.com,,,,,,,,,,`,
-        es: `MARITING - PLANTILLA DE ANÁLISIS DE COMPETENCIA HOTELERA,,,,,,,,,,
-,,,,,,,,,,
-Plataforma:,(ej. Booking Airbnb Expedia Google Hotels),,,,,,,,,,
-,,,,,,,,,,
-ANÁLISIS DE PRECIOS HABITACIONES INDIVIDUALES,,,,,,,,,,
-Nombre del Hotel,Calificación,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado,Domingo,Núm. Reseñas
-[Mi Hotel Principal],8.5,€85,€85,€85,€95,€120,€130,€110,465
-Hotel Competidor 1,,,,,,,,,
-Hotel Competidor 2,,,,,,,,,
-Hotel Competidor 3,,,,,,,,,
-Hotel Competidor 4,,,,,,,,,
-Hotel Competidor 5,,,,,,,,,
-Hotel Competidor 6,,,,,,,,,
-Hotel Competidor 7,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-ANÁLISIS DE PRECIOS HABITACIONES DOBLES,,,,,,,,,,
-Nombre del Hotel,Calificación,Lunes,Martes,Miércoles,Jueves,Viernes,Sábado,Domingo,Núm. Reseñas
-[Mi Hotel Principal],8.5,€120,€120,€120,€135,€160,€170,€145,465
-Hotel Competidor 1,,,,,,,,,
-Hotel Competidor 2,,,,,,,,,
-Hotel Competidor 3,,,,,,,,,
-Hotel Competidor 4,,,,,,,,,
-Hotel Competidor 5,,,,,,,,,
-Hotel Competidor 6,,,,,,,,,
-Hotel Competidor 7,,,,,,,,,
-,,,,,,,,,,
-Contacto: support@mariting.com,,,,,,,,,,`,
-        de: `MARITING - HOTEL WETTBEWERBS ANALYSE VORLAGE,,,,,,,,,,
-,,,,,,,,,,
-Plattform:,(z.B. Booking Airbnb Expedia Google Hotels),,,,,,,,,,
-,,,,,,,,,,
-EINZELZIMMER PREISANALYSE,,,,,,,,,,
-Hotelname,Bewertung,Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag,Sonntag,Anz. Bewertungen
-[Mein Haupthotel],8.5,€85,€85,€85,€95,€120,€130,€110,465
-Konkurrenz Hotel 1,,,,,,,,,
-Konkurrenz Hotel 2,,,,,,,,,
-Konkurrenz Hotel 3,,,,,,,,,
-Konkurrenz Hotel 4,,,,,,,,,
-Konkurrenz Hotel 5,,,,,,,,,
-Konkurrenz Hotel 6,,,,,,,,,
-Konkurrenz Hotel 7,,,,,,,,,
-,,,,,,,,,,
-,,,,,,,,,,
-DOPPELZIMMER PREISANALYSE,,,,,,,,,,
-Hotelname,Bewertung,Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag,Sonntag,Anz. Bewertungen
-[Mein Haupthotel],8.5,€120,€120,€120,€135,€160,€170,€145,465
-Konkurrenz Hotel 1,,,,,,,,,
-Konkurrenz Hotel 2,,,,,,,,,
-Konkurrenz Hotel 3,,,,,,,,,
-Konkurrenz Hotel 4,,,,,,,,,
-Konkurrenz Hotel 5,,,,,,,,,
-Konkurrenz Hotel 6,,,,,,,,,
-Konkurrenz Hotel 7,,,,,,,,,
-,,,,,,,,,,
-Kontakt: support@mariting.com,,,,,,,,,,`
+        en: [
+            ['MARITING - HOTEL COMPETITION ANALYSIS TEMPLATE', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['Platform:', '(Write the platform name exactly as shown below)', '', '', '', '', '', '', '', ''],
+            ['Available platforms:', 'Booking', 'Airbnb', 'Expedia', 'Google Hotels', 'TripAdvisor', 'Trivago', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['SINGLE ROOMS PRICING ANALYSIS', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Name', 'Rating', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Reviews Num'],
+            ['[My Main Hotel]', 8.5, '€85', '€85', '€85', '€95', '€120', '€130', '€110', 465],
+            ['Competitor Hotel 1', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 2', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 3', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 4', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 5', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 6', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 7', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['DOUBLE ROOMS PRICING ANALYSIS', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Name', 'Rating', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Reviews Num'],
+            ['[My Main Hotel]', 8.5, '€120', '€120', '€120', '€135', '€160', '€170', '€145', 465],
+            ['Competitor Hotel 1', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 2', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 3', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 4', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 5', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 6', '', '', '', '', '', '', '', '', ''],
+            ['Competitor Hotel 7', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['Contact: support@mariting.com', '', '', '', '', '', '', '', '', '']
+        ],
+        es: [
+            ['MARITING - PLANTILLA DE ANÁLISIS DE COMPETENCIA HOTELERA', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['Plataforma:', '(Escribe el nombre de la plataforma exactamente como se muestra abajo)', '', '', '', '', '', '', '', ''],
+            ['Plataformas disponibles:', 'Booking', 'Airbnb', 'Expedia', 'Google Hotels', 'TripAdvisor', 'Trivago', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['ANÁLISIS DE PRECIOS HABITACIONES INDIVIDUALES', '', '', '', '', '', '', '', '', ''],
+            ['Nombre del Hotel', 'Calificación', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo', 'Núm. Reseñas'],
+            ['[Mi Hotel Principal]', 8.5, '€85', '€85', '€85', '€95', '€120', '€130', '€110', 465],
+            ['Hotel Competidor 1', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 2', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 3', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 4', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 5', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 6', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 7', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['ANÁLISIS DE PRECIOS HABITACIONES DOBLES', '', '', '', '', '', '', '', '', ''],
+            ['Nombre del Hotel', 'Calificación', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo', 'Núm. Reseñas'],
+            ['[Mi Hotel Principal]', 8.5, '€120', '€120', '€120', '€135', '€160', '€170', '€145', 465],
+            ['Hotel Competidor 1', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 2', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 3', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 4', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 5', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 6', '', '', '', '', '', '', '', '', ''],
+            ['Hotel Competidor 7', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['Contacto: support@mariting.com', '', '', '', '', '', '', '', '', '']
+        ],
+        de: [
+            ['MARITING - HOTEL WETTBEWERBS ANALYSE VORLAGE', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['Plattform:', '(Schreiben Sie den Plattformnamen genau wie unten gezeigt)', '', '', '', '', '', '', '', ''],
+            ['Verfügbare Plattformen:', 'Booking', 'Airbnb', 'Expedia', 'Google Hotels', 'TripAdvisor', 'Trivago', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['EINZELZIMMER PREISANALYSE', '', '', '', '', '', '', '', '', ''],
+            ['Hotelname', 'Bewertung', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag', 'Anz. Bewertungen'],
+            ['[Mein Haupthotel]', 8.5, '€85', '€85', '€85', '€95', '€120', '€130', '€110', 465],
+            ['Konkurrenz Hotel 1', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 2', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 3', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 4', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 5', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 6', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 7', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['DOPPELZIMMER PREISANALYSE', '', '', '', '', '', '', '', '', ''],
+            ['Hotelname', 'Bewertung', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag', 'Anz. Bewertungen'],
+            ['[Mein Haupthotel]', 8.5, '€120', '€120', '€120', '€135', '€160', '€170', '€145', 465],
+            ['Konkurrenz Hotel 1', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 2', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 3', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 4', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 5', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 6', '', '', '', '', '', '', '', '', ''],
+            ['Konkurrenz Hotel 7', '', '', '', '', '', '', '', '', ''],
+            ['', '', '', '', '', '', '', '', '', ''],
+            ['Kontakt: support@mariting.com', '', '', '', '', '', '', '', '', '']
+        ]
     };
     
     return templates[lang];
@@ -619,10 +633,10 @@ Kontakt: support@mariting.com,,,,,,,,,,`
 function detectPlatform(platformText) {
     if (!platformText) return { name: 'Unknown', logo: null, scale: 10 };
     
-    const text = platformText.toLowerCase();
+    const text = platformText.toLowerCase().trim();
     
     if (text.includes('booking')) {
-        return { name: 'Booking.com', logo: platformLogos.booking, scale: 10 };
+        return { name: 'Booking', logo: platformLogos.booking, scale: 10 };
     } else if (text.includes('airbnb')) {
         return { name: 'Airbnb', logo: platformLogos.airbnb, scale: 5 };
     } else if (text.includes('expedia')) {

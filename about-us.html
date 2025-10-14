@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Mariting</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #4FC3F7;
+            --primary-dark: #29B6F6;
+            --primary-light: #81D4FA;
+            --secondary: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1e293b;
+            --dark-light: #334155;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --shadow-lg: rgba(0, 0, 0, 0.15);
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+        }
+        
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .bg-animation::before,
+        .bg-animation::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 20s infinite ease-in-out;
+        }
+        
+        .bg-animation::before {
+            top: -250px;
+            right: -250px;
+            animation-delay: 0s;
+        }
+        
+        .bg-animation::after {
+            bottom: -250px;
+            left: -250px;
+            animation-delay: 10s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+        
+        /* Header */
+        header {
+            position: relative;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px var(--shadow);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .brand-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary);
+        }
+        
+        .nav-link.active {
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        /* Language Dropdown */
+        .language-selector {
+            position: relative;
+        }
+        
+        .lang-dropdown {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            min-width: 80px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23334155' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            padding-right: 2rem;
+        }
+        
+        .lang-dropdown:hover {
+            border-color: var(--primary);
+        }
+        
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .page-title h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .page-title p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 300;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Feature Section */
+        .feature-section {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 40px var(--shadow-lg);
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            scroll-margin-top: 100px;
+        }
+        
+        .feature-section:nth-child(1) { animation-delay: 0.1s; }
+        .feature-section:nth-child(2) { animation-delay: 0.2s; }
+        .feature-section:nth-child(3) { animation-delay: 0.3s; }
+        .feature-section:nth-child(4) { animation-delay: 0.4s; }
+        .feature-section:nth-child(5) { animation-delay: 0.5s; }
+        .feature-section:nth-child(6) { animation-delay: 0.6s; }
+        
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(79, 195, 247, 0.4);
+            flex-shrink: 0;
+        }
+        
+        .feature-icon svg {
+            width: 45px;
+            height: 45px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .feature-title {
+            flex: 1;
+        }
+        
+        .feature-title h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        .feature-content {
+            color: var(--dark-light);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        
+        .feature-content h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: 600;
+        }
+        
+        .feature-content h4 {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin: 1.5rem 0 0.75rem 0;
+            font-weight: 600;
+        }
+        
+        .feature-content ul {
+            list-style: none;
+            margin: 1rem 0;
+            padding-left: 0;
+        }
+        
+        .feature-content li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .feature-content li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .highlight-box {
+            background: var(--light);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .highlight-box strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            margin-top: 3rem;
+            box-shadow: 0 10px 40px var(--shadow-lg);
+        }
+        
+        .cta-section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .cta-section p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            background: linear-gradient(135deg, #4FC3F7, #29B6F6);
+            color: white;
+            box-shadow: 0 4px 15px rgba(79, 195, 247, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(79, 195, 247, 0.6);
+        }
+        
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        .footer-bottom {
+            color: var(--gray);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title h1 {
+                font-size: 2.5rem;
+            }
+            
+            .feature-section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .feature-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .feature-title h2 {
+                font-size: 1.5rem;
+            }
+            
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .feature-icon svg {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .header-right {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <header>
+        <div class="logo-container">
+            <a href="index.html" class="brand-name">Mariting</a>
+        </div>
+        <div class="header-right">
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about-us.html" class="nav-link active">About Us</a>
+                <a href="#" class="nav-link">Contact</a>
+            </nav>
+            <div class="language-selector">
+                <select class="lang-dropdown" id="langDropdown">
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                    <option value="de">DE</option>
+                </select>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="page-title">
+            <h1>About Mariting</h1>
+            <p>Your Complete Hotel Intelligence Platform</p>
+        </div>
+        
+        <!-- Feature 1: Visual Competition Analysis -->
+        <section class="feature-section" id="visual-analysis">
+            <div class="feature-header">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                </div>
+                <div class="feature-title">
+                    <h2>Visual Competition Analysis</h2>
+                    <p>See your competitive position at a glance</p>
+                </div>
+            </div>
+            <div class="feature-content">
+                <p>Mariting transforms complex competitive data into intuitive scatter plot visualizations that instantly reveal your hotel's market position. No more spreadsheets or confusing data tables – see exactly where you stand versus your competition in seconds.</p>
+                
+                <h3>How It Works</h3>
+                <p>Our advanced charting system plots each hotel as a bubble on a two-dimensional graph:</p>
+                <ul>
+                    <li><strong>X-axis (Horizontal):</strong> Price positioning – see if you're premium or budget</li>
+                    <li><strong>Y-axis (Vertical):</strong> Guest rating – understand your quality perception</li>
+                    <li><strong>Bubble size:</strong> Number of reviews – visualize credibility and booking volume</li>
+                    <li><strong>Your hotel:</strong> Highlighted in distinctive blue for instant recognition</li>
+                    <li><strong>Competitors:</strong> Shown in pink for easy comparison</li>
+                </ul>
+                
+                <h3>The Four Strategic Quadrants</h3>
+                
+                <h4>🏆 Premium Position (Top Right)</h4>
+                <p>High rating + High price. You're delivering exceptional value and guests recognize it. This is the ideal position for luxury and upscale properties.</p>
+                
+                <h4>💎 Value Leader (Top Left)</h4>
+                <p>High rating + Competitive price. You're potentially leaving money on the table. This position suggests strong revenue growth opportunity through strategic price increases.</p>
+                
+                <h4>⚠️ Overpriced (Bottom Right)</h4>
+                <p>Low rating + High price. Warning zone! Guests perceive poor value, which typically results in low occupancy and negative reviews. Immediate action required.</p>
+                
+                <h4>💰 Budget Position (Bottom Left)</h4>
+                <p>Low rating + Low price. You're aligned with budget segment expectations. Decide if you want to stay here or invest in improvements to move upward.</p>
+                
+                <div class="highlight-box">
+                    <strong>Smart Crosshairs</strong>
+                    <p>Our system automatically calculates and displays:</p>
+                    <ul>
+                        <li><strong>Vertical line:</strong> Average market price – instantly see if you're above or below market</li>
+                        <li><strong>Horizontal line:</strong> Quality threshold (8.0/10 or 4.0/5) – the psychological booking barrier</li>
+                    </ul>
+                </div>
+                
+                <h3>Why Visual Analysis Matters</h3>
+                <p>Human brains process visual information 60,000 times faster than text. Instead of analyzing rows of numbers, you instantly understand:</p>
+                <ul>
+                    <li>Your competitive strengths and weaknesses</li>
+                    <li>Price optimization opportunities</li>
+                    <li>Service improvement priorities</li>
+                    <li>Market positioning gaps</li>
+                    <li>Strategic movement direction</li>
+                </ul>
+                
+                <p>Make confident pricing and strategy decisions backed by clear visual evidence, not guesswork.</p>
+            </div>
+        </section>
+        
+        <!-- Feature 2: Day-by-Day Analysis -->
+        <section class="feature-section" id="daily-analysis">
+            <div class="feature-header">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                </div>
+                <div class="feature-title">
+                    <h2>Day-by-Day Analysis</h2>
+                    <p>Understand weekly pricing patterns</p>
+                </div>
+            </div>
+            <div class="feature-content">
+                <p>Hotel demand isn't constant throughout the week. Business hotels peak Monday-Thursday, leisure properties surge on weekends, and event-driven demand creates unique patterns. Mariting's day-by-day analysis helps you understand and capitalize on these fluctuations.</p>
+                
+                <h3>Flexible Analysis Options</h3>
+                
+                <h4>Single Day Focus</h4>
+                <p>Choose one specific day (e.g., Saturday) to analyze in depth. Perfect for:</p>
+                <ul>
+                    <li>Comparing high-demand days (typically weekends)</li>
+                    <li>Understanding special event pricing</li>
+                    <li>Benchmarking your peak rates</li>
+                    <li>Quick competitive snapshots</li>
+                </ul>
+                
+                <h4>Full Week Overview</h4>
+                <p>Analyze all seven days simultaneously to reveal:</p>
+                <ul>
+                    <li>Weekly demand patterns across your market</li>
+                    <li>How competitors adjust pricing throughout the week</li>
+                    <li>Your pricing consistency vs. dynamic strategies</li>
+                    <li>Days where you're over/under-priced</li>
+                    <li>Opportunities for rate optimization</li>
+                </ul>
+                
+                <h3>Real-World Applications</h3>
+                
+                <h4>Business Hotels</h4>
+                <p>Typical pattern: Higher rates Monday-Thursday, lower Friday-Sunday. Mariting shows if you're following or fighting market trends.</p>
+                
+                <h4>Leisure Properties</h4>
+                <p>Typical pattern: Peak rates Friday-Sunday, reduced midweek. See if your weekend premiums match market expectations.</p>
+                
+                <h4>Event-Driven Markets</h4>
+                <p>Track how competitors price around conferences, concerts, sports events, and holidays. Never miss a revenue opportunity.</p>
+                
+                <div class="highlight-box">
+                    <strong>Pro Tip: Weekly Consistency</strong>
+                    <p>Use the same day across all hotels in your analysis. For example, if you check Saturday prices for your hotel, check Saturday for all competitors. This ensures accurate comparisons and valid insights.</p>
+                </div>
+                
+                <h3>Strategic Benefits</h3>
+                <ul>
+                    <li><strong>Dynamic Pricing:</strong> Adjust rates based on day-specific demand</li>
+                    <li><strong>Competitive Intelligence:</strong> See how aggressive competitors price each day</li>
+                    <li><strong>Revenue Optimization:</strong> Identify underpriced high-demand days</li>
+                    <li><strong>Demand Patterns:</strong> Understand your market's weekly rhythm</li>
+                    <li><strong>Forecasting:</strong> Use patterns to predict future pricing needs</li>
+                </ul>
+                
+                <p>Whether you analyze one day or seven, Mariting gives you the insights to price every night optimally.</p>
+            </div>
+        </section>
+        
+        <!-- Feature 3: Room Type Comparison -->
+        <section class="feature-section" id="room-comparison">
+            <div class="feature-header">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+                        <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+                        <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                    </svg>
+                </div>
+                <div class="feature-title">
+                    <h2>Room Type Comparison</h2>
+                    <p>Analyze single and double rooms separately or together</p>
+                </div>
+            </div>
+            <div class="feature-content">
+                <p>Different room types have different competitive dynamics. A hotel might be perfectly priced for single rooms but overpriced for doubles, or vice versa. Mariting lets you analyze each room type independently for precise insights.</p>
+                
+                <h3>Why Separate Room Type Analysis?</h3>
+                
+                <h4>Different Customer Segments</h4>
+                <ul>
+                    <li><strong>Single rooms:</strong> Often business travelers, price-sensitive solo leisure travelers</li>
+                    <li><strong>Double rooms:</strong> Couples, families, higher spending power</li>
+                    <li>Each segment has different price tolerance and expectations</li>
+                </ul>
+                
+                <h4>Different Competitive Pressures</h4>
+                <ul>
+                    <li>More competition for double rooms (most common booking)</li>
+                    <li>Single room supply varies significantly by market</li>
+                    <li>Price gaps between room types differ by competitor</li>
+                </ul>
+                
+                <h3>Analysis Options</h3>
+                
+                <h4>Single Room Only</h4>
+                <p>Focus exclusively on single room competitive positioning. Ideal for:</p>
+                <ul>
+                    <li>Business hotels with significant single room inventory</li>
+                    <li>Markets with strong solo traveler demand</li>
+                    <li>Properties targeting the corporate segment</li>
+                </ul>
+                
+                <h4>Double Room Only</h4>
+                <p>Concentrate on double room dynamics. Best for:</p>
+                <ul>
+                    <li>Leisure-focused properties</li>
+                    <li>Hotels without single room inventory</li>
+                    <li>Markets dominated by couple/family travel</li>
+                </ul>
+                
+                <h4>Both Room Types</h4>
+                <p>Analyze both simultaneously to:</p>
+                <ul>
+                    <li>Compare pricing strategies across room types</li>
+                    <li>Ensure consistent positioning in both categories</li>
+                    <li>Identify where you're stronger or weaker</li>
+                    <li>Optimize your room type mix strategy</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <strong>Common Insights</strong>
+                    <p>Many hotels discover they're:</p>
+                    <ul>
+                        <li>Underpriced in singles but well-positioned in doubles</li>
+                        <li>Premium in doubles but overpriced in singles</li>
+                        <li>Competitive in one type but uncompetitive in another</li>
+                    </ul>
+                    <p>These insights enable targeted pricing adjustments instead of blanket changes.</p>
+                </div>
+                
+                <h3>Strategic Applications</h3>
+                
+                <h4>Price Gap Management</h4>
+                <p>Optimize the difference between your single and double rates:</p>
+                <ul>
+                    <li>Is your gap too wide or too narrow vs. competitors?</li>
+                    <li>Are you incentivizing the right room type?</li>
+                    <li>Does your gap match market expectations?</li>
+                </ul>
+                
+                <h4>Inventory Optimization</h4>
+                <p>Use insights to inform:</p>
+                <ul>
+                    <li>Room type allocation decisions</li>
+                    <li>Renovation priorities</li>
+                    <li>Conversion strategies (singles to doubles or vice versa)</li>
+                </ul>
+                
+                <h4>Segment Targeting</h4>
+                <p>Adjust pricing to attract your preferred guest mix:</p>
+                <ul>
+                    <li>Emphasize business segment with competitive singles</li>
+                    <li>Target leisure with attractive double rates</li>
+                    <li>Balance occupancy across room types</li>
+                </ul>
+                
+                <p>Room type analysis is essential for hotels with diverse inventory. Don't average – analyze each type for maximum precision and revenue impact.</p>
+            </div>
+        </section>
+        
+        <!-- Feature 4: Easy Excel Template -->
+        <section class="feature-section" id="excel-template">
+            <div class="feature-header">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </div>
+                <div class="feature-title">
+                    <h2>Easy Excel Template</h2>
+                    <p>Simple, intuitive data collection</p>
+                </div>
+            </div>
+            <div class="feature-content">
+                <p>Forget complex software, API integrations, or technical setup. Mariting uses a simple Excel template that anyone can fill out in 10-15 minutes. No training required, no learning curve – just straightforward data entry.</p>
+                
+                <h3>Template Design Philosophy</h3>
+                <p>We've obsessed over making data collection as simple as possible:</p>
+                <ul>
+                    <li><strong>One file:</strong> Everything in a single Excel document</li>
+                    <li><strong>Clear headers:</strong> Every column labeled in plain language</li>
+                    <li><strong>Example data:</strong> Your hotel pre-filled as a guide</li>
+                    <li><strong>Minimal fields:</strong> Only what's truly necessary</li>
+                    <li><strong>Flexible format:</strong> Fill only what you need</li>
+                </ul>
+                
+                <h3>What You Need to Collect</h3>
+                
+                <h4>Essential Information (Required)</h4>
+                <ul>
+                    <li><strong>Platform:</strong> Booking, Airbnb, Expedia, Google Hotels, TripAdvisor, or Trivago</li>
+                    <li><strong>Hotel names:</strong> Your property + competitors</li>
+                    <li><strong>Ratings:</strong> Current guest rating from the platform</li>
+                    <li><strong>Prices:</strong> At least one day's pricing for each hotel</li>
+                    <li><strong>Review count:</strong> Total number of reviews</li>
+                </ul>
+                
+                <h4>Optional Additions</h4>
+                <ul>
+                    <li>Additional days for weekly analysis</li>
+                    <li>More competitors for comprehensive view</li>
+                    <li>Both single and double rooms</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <strong>Quick Start: 5-Minute Analysis</strong>
+                    <p>Minimum data needed:</p>
+                    <ul>
+                        <li>1 platform</li>
+                        <li>1 room type (single or double)</li>
+                        <li>1 day of pricing</li>
+                        <li>3-5 competitors</li>
+                    </ul>
+                    <p>That's it! You'll get valuable insights in under 5 minutes of data entry.</p>
+                </div>
+                
+                <h3>How to Use the Template</h3>
+                
+                <h4>Step 1: Download</h4>
+                <p>Click "Download Template" and choose your language (English, Spanish, or German). The Excel file downloads instantly.</p>
+                
+                <h4>Step 2: Platform Selection</h4>
+                <p>In row 4, specify which platform you're analyzing. Choose from:</p>
+                <ul>
+                    <li>Booking</li>
+                    <li>Airbnb</li>
+                    <li>Expedia</li>
+                    <li>Google Hotels</li>
+                    <li>TripAdvisor</li>
+                    <li>Trivago</li>
+                </ul>
+                
+                <h4>Step 3: Your Hotel</h4>
+                <p>The first row is pre-filled with placeholder data for "[Your Hotel]". Replace with your actual data. Keep the brackets around your hotel name – that's how Mariting identifies you.</p>
+                
+                <h4>Step 4: Competitors</h4>
+                <p>Add 3-7 competitor hotels. For each, enter:</p>
+                <ul>
+                    <li>Hotel name (no special formatting needed)</li>
+                    <li>Current rating (e.g., 8.5, 4.3)</li>
+                    <li>Price for at least one day</li>
+                    <li>Total review count</li>
+                </ul>
+                
+                <h4>Step 5: Optional Second Room Type</h4>
+                <p>If analyzing both singles and doubles, repeat the process in the second section.</p>
+                
+                <h3>Data Collection Tips</h3>
+                
+                <h4>Same Day, Same Time</h4>
+                <p>Check all prices on the same date for fair comparison. Price fluctuations throughout the week make different-date comparisons misleading.</p>
+                
+                <h4>Exact Ratings</h4>
+                <p>Don't round! Use 8.7, not 9. Precision matters for positioning analysis.</p>
+                
+                <h4>Direct Competitors</h4>
+                <p>Choose hotels that:</p>
+                <ul>
+                    <li>Are in your geographic area (same neighborhood/district)</li>
+                    <li>Have similar star rating (+/- 1 star)</li>
+                    <li>Target similar guest segments</li>
+                    <li>Actually compete for your bookings</li>
+                </ul>
+                
+                <h4>Currency Consistency</h4>
+                <p>Use the same currency for all hotels (€, $, £, etc.). Mariting strips currency symbols automatically.</p>
+                
+                <h3>Template Features</h3>
+                <ul>
+                    <li><strong>Multi-language:</strong> English, Spanish, German templates</li>
+                    <li><strong>Excel format:</strong> Works in Excel, Google Sheets, Numbers, LibreOffice</li>
+                    <li><strong>Pre-validated:</strong> Structure ensures compatibility</li>
+                    <li><strong>Reusable:</strong> Save monthly versions to track trends</li>
+                </ul>
+                
+                <p>The template is your bridge from raw market data to strategic insights. Simple to fill, powerful in results.</p>
+            </div>
+        </section>
+        
+        <!-- Feature 5: Mobile Responsive -->
+        <section class="feature-section" id="mobile-responsive">
+            <div class="feature-header">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                        <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                    </svg>
+                </div>
+                <div class="feature-title">
+                    <h2>Mobile Responsive</h2>
+                    <p>Access your analysis from any device, anywhere</p>
+                </div>
+            </div>
+            <div class="feature-content">
+                <p>Your competitive intelligence shouldn't be locked to a desktop. Mariting works flawlessly on smartphones, tablets, laptops, and desktops – because insights are valuable wherever you are.</p>
+                
+                <h3>True Cross-Device Experience</h3>
+                
+                <h4>📱 Smartphones</h4>
+                <ul>
+                    <li><strong>Optimized layouts:</strong> Single-column views that don't sacrifice functionality</li>
+                    <li><strong>Touch-friendly:</strong> Large tap targets for file upload and buttons</li>
+                    <li><strong>Readable charts:</strong> Graphs scale perfectly to small screens</li>
+                    <li><strong>Swipe navigation:</strong> Natural mobile gestures throughout</li>
+                    <li><strong>Vertical scrolling:</strong> Comfortable one-handed browsing</li>
+                </ul>
+                
+                <h4>📱 Tablets</h4>
+                <ul>
+                    <li><strong>Dual-column layouts:</strong> Maximize tablet screen real estate</li>
+                    <li><strong>Landscape support:</strong> Charts expand to full width</li>
+                    <li><strong>Split-screen friendly:</strong> Works alongside other apps</li>
+                    <li><strong>Apple Pencil/Stylus:</strong> Precise interaction with graphs</li>
+                </ul>
+                
+                <h4>💻 Desktops</h4>
+                <ul>
+                    <li><strong>Full feature set:</strong> All analysis tools readily accessible</li>
+                    <li><strong>Large charts:</strong> Detailed visualization with maximum clarity</li>
+                    <li><strong>Multi-column layouts:</strong> See more information simultaneously</li>
+                    <li><strong>Keyboard shortcuts:</strong> Efficient navigation</li>
+                </ul>
+                
+                <h3>Real-World Scenarios</h3>
+                
+                <h4>On Property Walkthrough</h4>
+                <p>Use your phone to pull up competitive analysis while touring your hotel. Show positioning to ownership, investors, or consultants on the spot.</p>
+                
+                <h4>Revenue Meeting</h4>
+                <p>Open Mariting on your laptop or tablet during team discussions. Reference charts in real-time as you debate pricing strategies.</p>
+                
+                <h4>Remote Management</h4>
+                <p>Check competitive positioning from anywhere – home, vacation, during travel. Your data is always accessible.</p>
+                
+                <h4>Quick Competitor Checks</h4>
+                <p>See a competitor's rate change? Update your template on your phone, regenerate analysis, and assess impact immediately.</p>
+                
+                <div class="highlight-box">
+                    <strong>No Installation Required</strong>
+                    <p>Mariting is a web application – no app store downloads, no installation, no updates to manage. Just open your browser and start analyzing on any device.</p>
+                </div>
+                
+                <h3>Responsive Features</h3>
+                
+                <h4>Adaptive Interface</h4>
+                <ul>
+                    <li>Navigation menu collapses to hamburger on mobile</li>
+                    <li>Language selector remains accessible at all sizes</li>
+                    <li>Cards stack vertically on small screens</li>
+                    <li>Charts resize while maintaining readability</li>
+                </ul>
+                
+                <h4>Touch Optimization</h4>
+                <ul>
+                    <li>Buttons sized for fingertip accuracy (44x44px minimum)</li>
+                    <li>Drag-and-drop file upload works on touch screens</li>
+                    <li>Checkboxes and options easy to select on mobile</li>
+                    <li>Scrollable areas with momentum (feels native)</li>
+                </ul>
+                
+                <h4>Performance on Mobile</h4>
+                <ul>
+                    <li>Fast loading even on cellular data</li>
+                    <li>Efficient processing that doesn't drain battery</li>
+                    <li>Smooth animations at 60fps</li>
+                    <li>Works offline after first load</li>
+                </ul>
+                
+                <h3>Mobile Workflow</h3>
+                
+                <h4>Data Collection</h4>
+                <p>Open booking platforms on your phone, collect competitor data, and enter directly into the Excel template on your device.</p>
+                
+                <h4>File Upload</h4>
+                <p>Upload your template from phone storage, Dropbox, Google Drive, or iCloud – wherever you keep files.</p>
+                
+                <h4>Analysis</h4>
+                <p>Generate charts with a tap. Pinch to zoom on graphs for detail inspection.</p>
+                
+                <h4>Sharing</h4>
+                <p>Download charts and share via email, WhatsApp, Slack, or any messaging app directly from your phone.</p>
+                
+                <h3>Technical Excellence</h3>
+                <ul>
+                    <li><strong>Responsive CSS:</strong> Fluid layouts that adapt, not break</li>
+                    <li><strong>Mobile-first design:</strong> Built for phones, enhanced for larger screens</li>
+                    <li><strong>Touch events:</strong> Proper handling of taps, swipes, pinches</li>
+                    <li><strong>Viewport optimization:</strong> Perfect scaling on all screen sizes</li>
+                    <li><strong>Browser compatibility:</strong> Works on Safari, Chrome, Firefox, Edge</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <strong>Tested Devices</strong>
+                    <p>Mariting has been tested and optimized for:</p>
+                    <ul>
+                        <li>iPhone (6S through latest models)</li>
+                        <li>iPad (all sizes and orientations)</li>
+                        <li>Android phones (Samsung, Google, OnePlus, etc.)</li>
+                        <li>Android tablets</li>
+                        <li>Windows laptops and desktops</li>
+                        <li>Mac computers</li>
+                        <li>Chromebooks</li>
+                    </ul>
+                </div>
+                
+                <p>In today's multi-device world, your competitive intelligence tool must work everywhere. Mariting does – beautifully and efficiently.</p>
+            </div>
+        </section>
+        
+        <!-- Feature 6: Export Results -->
+        <section class="feature-section" id="export-results">
+            <div class="feature-header">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                </div>
+                <div class="feature-title">
+                    <h2>Export Results</h2>
+                    <p>Download your charts for presentations and reports</p>
+                </div>
+            </div>
+            <div class="feature-content">
+                <p>Analysis is only valuable if you can share and act on it. Mariting makes exporting your competitive insights effortless – perfect for presentations, reports, and strategic discussions.</p>
+                
+                <h3>One-Click Export</h3>
+                <p>Every chart generated by Mariting includes a "Download" button. One click saves that chart as a high-quality PNG image to your device.</p>
+                
+                <h4>Export Features</h4>
+                <ul>
+                    <li><strong>High resolution:</strong> Crystal clear images suitable for projection</li>
+                    <li><strong>Transparent backgrounds:</strong> Overlay on any slide design</li>
+                    <li><strong>Proper sizing:</strong> Optimized dimensions for presentations</li>
+                    <li><strong>Filename convention:</strong> Automatically named by room type and day</li>
+                    <li><strong>Instant download:</strong> No processing delay, immediate save</li>
+                </ul>
+                
+                <h3>Use Cases for Exports</h3>
+                
+                <h4>📊 Management Presentations</h4>
+                <p>Include competitive position charts in monthly or quarterly management reports:</p>
+                <ul>
+                    <li>Revenue strategy presentations</li>
+                    <li>Board of directors updates</li>
+                    <li>Owner/investor communications</li>
+                    <li>Strategic planning sessions</li>
+                </ul>
+                
+                <h4>📈 Sales & Marketing Materials</h4>
+                <p>Demonstrate your market position in:</p>
+                <ul>
+                    <li>RFP responses</li>
+                    <li>Group sales proposals</li>
+                    <li>Partnership discussions</li>
+                    <li>Media kits</li>
+                </ul>
+                
+                <h4>💼 Team Discussions</h4>
+                <p>Share with your team for collaborative strategy:</p>
+                <ul>
+                    <li>Revenue meetings</li>
+                    <li>Pricing strategy sessions</li>
+                    <li>Marketing alignment</li>
+                    <li>Operations planning</li>
+                </ul>
+                
+                <h4>📧 Email Reports</h4>
+                <p>Attach charts to emails for remote stakeholders:</p>
+                <ul>
+                    <li>Weekly pricing updates</li>
+                    <li>Competitive alerts</li>
+                    <li>Market change notifications</li>
+                    <li>Strategy recommendations</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <strong>Pro Presentation Tip</strong>
+                    <p>Export multiple charts (all days or both room types) and create a slide deck showing competitive evolution throughout the week. This visual storytelling is far more impactful than static pricing tables.</p>
+                </div>
+                
+                <h3>Integration with Common Tools</h3>
+                
+                <h4>Microsoft PowerPoint</h4>
+                <ul>
+                    <li>Drag and drop exported PNGs directly onto slides</li>
+                    <li>Resize without quality loss</li>
+                    <li>Transparent backgrounds layer perfectly</li>
+                    <li>Add annotations and highlights as needed</li>
+                </ul>
+                
+                <h4>Google Slides</h4>
+                <ul>
+                    <li>Upload from Google Drive or local storage</li>
+                    <li>Cloud-based collaboration with team members</li>
+                    <li>Easy sharing via link</li>
+                    <li>Version control built-in</li>
+                </ul>
+                
+                <h4>Apple Keynote</h4>
+                <ul>
+                    <li>Native PNG support</li>
+                    <li>Beautiful transitions</li>
+                    <li>High-resolution display support (Retina)</li>
+                    <li>Export to PDF for distribution</li>
+                </ul>
+                
+                <h4>Reports & Documents</h4>
+                <ul>
+                    <li>Insert into Word documents</li>
+                    <li>Include in Google Docs</li>
+                    <li>Add to Pages documents</li>
+                    <li>Embed in PDF reports</li>
+                </ul>
+                
+                <h3>Export Workflow Example</h3>
+                
+                <h4>Monthly Revenue Review</h4>
+                <ol style="list-style: decimal; padding-left: 2rem;">
+                    <li>Update competitive data (first Monday of month)</li>
+                    <li>Generate full week analysis in Mariting</li>
+                    <li>Export all 7 daily charts</li>
+                    <li>Create PowerPoint with weekly evolution</li>
+                    <li>Add commentary and recommendations</li>
+                    <li>Present to revenue team</li>
+                    <li>Share slides via email to stakeholders</li>
+                </ol>
+                
+                <h3>Quality & Format</h3>
+                
+                <h4>Image Specifications</h4>
+                <ul>
+                    <li><strong>Format:</strong> PNG (lossless compression)</li>
+                    <li><strong>Resolution:</strong> High DPI for clarity</li>
+                    <li><strong>Dimensions:</strong> Optimized for 16:9 presentations</li>
+                    <li><strong>Background:</strong> Transparent (alpha channel)</li>
+                    <li><strong>Color space:</strong> RGB for screen display</li>
+                </ul>
+                
+                <h4>What's Included in Export</h4>
+                <ul>
+                    <li>Complete scatter plot with all data points</li>
+                    <li>Your hotel (blue) and competitors (pink)</li>
+                    <li>Crosshair lines with labels</li>
+                    <li>Axis labels and scales</li>
+                    <li>Legend identifying hotels</li>
+                    <li>Platform logo (if applicable)</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <strong>Future Enhancement</strong>
+                    <p>We're working on PDF report generation that will bundle all your charts, AI analysis, and recommendations into a single professional document. Coming soon!</p>
+                </div>
+                
+                <h3>Best Practices</h3>
+                
+                <h4>Organize Your Exports</h4>
+                <ul>
+                    <li>Create folders by month/year</li>
+                    <li>Use consistent naming (e.g., "2025-01-Saturday-Single")</li>
+                    <li>Keep source templates with exported charts</li>
+                    <li>Archive old analyses for historical comparison</li>
+                </ul>
+                
+                <h4>Tell a Story</h4>
+                <ul>
+                    <li>Start with full-week overview</li>
+                    <li>Zoom into specific days with opportunities</li>
+                    <li>Compare single vs. double room positioning</li>
+                    <li>End with action items and recommendations</li>
+                </ul>
+                
+                <h4>Update Regularly</h4>
+                <ul>
+                    <li>Export monthly for trend tracking</li>
+                    <li>Compare month-over-month changes</li>
+                    <li>Show progress toward strategic goals</li>
+                    <li>Document competitive responses to your moves</li>
+                </ul>
+                
+                <p>Your competitive analysis is most powerful when shared. Mariting's export feature ensures insights reach everyone who needs them, in formats they can easily use.</p>
+            </div>
+        </section>
+        
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Ready to Transform Your Competitive Strategy?</h2>
+            <p>Start analyzing your market position in minutes</p>
+            <a href="index.html" class="btn">Get Started Now →</a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-bottom">
+            <p>© 2025 Mariting. All rights reserved. | <a href="mailto:support@mariting.com" style="color: var(--primary); text-decoration: none;">support@mariting.com</a></p>
+        </div>
+    </footer>
+</body>
+</html>
