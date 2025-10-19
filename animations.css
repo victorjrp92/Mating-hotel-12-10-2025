@@ -1,0 +1,532 @@
+/* ============================================
+   AUTHENTICATION SYSTEM STYLES - Minimalist & Professional
+   ============================================ */
+
+/* AI Analysis Button Animation - Subtle pulse */
+.btn-ai-analysis {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.btn-ai-analysis.pulse-animation {
+    animation: subtlePulse 3s ease-in-out infinite;
+}
+
+@keyframes subtlePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(79, 195, 247, 0.4);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 6px 20px rgba(79, 195, 247, 0.6);
+    }
+}
+
+/* Free Badge - Professional style */
+.free-badge-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Modal Overlays */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+}
+
+/* Modal Content Base */
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Modal Close Button */
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+/* Modal Typography */
+.modal-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+}
+
+.modal-subtitle {
+    color: #64748b;
+    font-size: 1rem;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.5;
+}
+
+.modal-text {
+    color: #475569;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 1rem 0;
+}
+
+.modal-note {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.modal-note a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.modal-note a:hover {
+    text-decoration: underline;
+}
+
+/* Pre-Check-In Modal Specific */
+.pre-checkin-modal {
+    max-width: 480px;
+}
+
+.modal-header-number {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #6366f1, #4FC3F7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+/* Benefits/Problems Lists */
+.benefits-list,
+.problem-list,
+.solution-list {
+    margin: 1.5rem 0;
+}
+
+.benefit-item,
+.problem-item,
+.solution-item {
+    display: flex;
+    align-items: flex-start;
+    margin: 0.75rem 0;
+    line-height: 1.5;
+}
+
+.benefit-icon,
+.solution-icon {
+    color: #10b981;
+    font-weight: bold;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+}
+
+.problem-icon {
+    color: #ef4444;
+    font-weight: bold;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+}
+
+.problem-section {
+    background: #fef2f2;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.solution-section {
+    background: #f0fdf4;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.section-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.or-divider {
+    text-align: center;
+    color: #94a3b8;
+    font-weight: 600;
+    margin: 1rem 0;
+    position: relative;
+}
+
+.social-proof {
+    font-weight: 600;
+    color: #1e293b;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.testimonial {
+    border-top: 1px solid #e2e8f0;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    font-style: italic;
+    color: #64748b;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Badge Container */
+.badge-container {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.free-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* Registration Form */
+.registration-form {
+    margin-top: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #94a3b8;
+}
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    position: relative;
+}
+
+.btn-loader {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.form-disclaimer {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+}
+
+/* Email Sent Modal */
+.email-sent-modal {
+    max-width: 400px;
+    text-align: center;
+}
+
+.success-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+#sentEmailAddress {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Upgrade Modal */
+.upgrade-modal {
+    max-width: 600px;
+}
+
+.upgrade-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.premium-benefits {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+}
+
+.premium-benefits h3 {
+    font-size: 1.1rem;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.benefits-list li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: #475569;
+}
+
+.benefits-list li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+}
+
+/* Pricing Cards */
+.pricing-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.pricing-card {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.pricing-card.featured {
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.pricing-card .badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.pricing-card h4 {
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+.price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0.5rem 0;
+}
+
+.savings {
+    color: #10b981;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+/* Button Variants */
+.btn-primary,
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.875rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    width: 100%;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #4FC3F7, #29B6F6);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 195, 247, 0.4);
+}
+
+.btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #e2e8f0;
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.modal-cta {
+    margin-top: 1.5rem;
+}
+
+/* Auth Indicator */
+#authIndicator {
+    padding: 0.5rem 1rem;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 8px;
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .modal-title {
+        font-size: 1.5rem;
+    }
+    
+    .modal-header-number {
+        font-size: 2.5rem;
+    }
+    
+    .pricing-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .pricing-card.featured {
+        transform: scale(1);
+    }
+}

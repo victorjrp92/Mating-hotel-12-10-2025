@@ -20,6 +20,12 @@
     <!-- XLSX for Excel -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Authentication System Styles -->
+    <link rel="stylesheet" href="animations.css">
+    
     <style>
         * {
             margin: 0;
@@ -817,6 +823,7 @@
                 <a href="about-us.html" class="nav-link" data-translate="nav.about">About Us</a>
                 <a href="#" class="nav-link" data-translate="nav.contact">Contact</a>
             </nav>
+            <div id="authIndicator" style="display: none;"></div>
             <div class="language-selector">
                 <select class="lang-dropdown" id="langDropdown" onchange="changeLanguage(this.value)">
                     <option value="en">EN</option>
@@ -1048,5 +1055,36 @@
     </div>
     
     <script src="app.js"></script>
+    
+    <!-- Authentication System Scripts -->
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="ab-testing.js"></script>
+    <script src="modals.js"></script>
+    
+    <!-- Initialize Authentication System -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Supabase
+            if (window.initSupabase) {
+                window.initSupabase();
+            }
+            
+            // Initialize authentication
+            if (window.authManager) {
+                window.authManager.init();
+            }
+            
+            // Initialize A/B testing
+            if (window.abTestManager) {
+                window.abTestManager.init();
+            }
+            
+            // Initialize modals
+            if (window.modalManager) {
+                window.modalManager.init();
+            }
+        });
+    </script>
 </body>
 </html>

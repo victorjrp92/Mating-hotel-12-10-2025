@@ -532,8 +532,7 @@ function generateTemplateData(lang) {
         en: [
             ['MARITING - HOTEL COMPETITION ANALYSIS TEMPLATE', '', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', '', '', ''],
-            ['Platform:', '(Write the platform name exactly as shown below)', '', '', '', '', '', '', '', ''],
-            ['Available platforms:', 'Booking', 'Airbnb', 'Expedia', 'Google Hotels', 'TripAdvisor', 'Trivago', '', '', '', ''],
+            ['Platform:', '(e.g. Booking, Airbnb, Expedia, Google Hotels, TripAdvisor, Trivago)', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', '', '', ''],
             ['SINGLE ROOMS PRICING ANALYSIS', '', '', '', '', '', '', '', '', ''],
             ['Hotel Name', 'Rating', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'Reviews Num'],
@@ -563,8 +562,7 @@ function generateTemplateData(lang) {
         es: [
             ['MARITING - PLANTILLA DE ANÁLISIS DE COMPETENCIA HOTELERA', '', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', '', '', ''],
-            ['Plataforma:', '(Escribe el nombre de la plataforma exactamente como se muestra abajo)', '', '', '', '', '', '', '', ''],
-            ['Plataformas disponibles:', 'Booking', 'Airbnb', 'Expedia', 'Google Hotels', 'TripAdvisor', 'Trivago', '', '', '', ''],
+            ['Plataforma:', '(ej. Booking, Airbnb, Expedia, Google Hotels, TripAdvisor, Trivago)', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', '', '', ''],
             ['ANÁLISIS DE PRECIOS HABITACIONES INDIVIDUALES', '', '', '', '', '', '', '', '', ''],
             ['Nombre del Hotel', 'Calificación', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo', 'Núm. Reseñas'],
@@ -594,8 +592,7 @@ function generateTemplateData(lang) {
         de: [
             ['MARITING - HOTEL WETTBEWERBS ANALYSE VORLAGE', '', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', '', '', ''],
-            ['Plattform:', '(Schreiben Sie den Plattformnamen genau wie unten gezeigt)', '', '', '', '', '', '', '', ''],
-            ['Verfügbare Plattformen:', 'Booking', 'Airbnb', 'Expedia', 'Google Hotels', 'TripAdvisor', 'Trivago', '', '', '', ''],
+            ['Plattform:', '(z.B. Booking, Airbnb, Expedia, Google Hotels, TripAdvisor, Trivago)', '', '', '', '', '', '', '', ''],
             ['', '', '', '', '', '', '', '', '', ''],
             ['EINZELZIMMER PREISANALYSE', '', '', '', '', '', '', '', '', ''],
             ['Hotelname', 'Bewertung', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag', 'Anz. Bewertungen'],
@@ -1124,9 +1121,10 @@ function downloadChart(chartId) {
 }
 
 // ============================================
-// AI ANALYSIS
+// AI ANALYSIS (FREE - NO RESTRICTIONS)
 // ============================================
 function openAIAnalysis() {
+    // Always open the analysis - NO authentication required
     document.getElementById('aiModal').classList.add('active');
     performAIAnalysis();
 }
@@ -1145,37 +1143,74 @@ function performAIAnalysis() {
 function generateAIAnalysis() {
     if (!uploadedData) return null;
     
-    const mainHotel = uploadedData.single.find(h => h.isMain) || uploadedData.double.find(h => h.isMain);
-    if (!mainHotel) return null;
+    // Get main hotel from both room types
+    const mainHotelSingle = uploadedData.single?.find(h => h.isMain);
+    const mainHotelDouble = uploadedData.double?.find(h => h.isMain);
     
-    const allHotels = [...(uploadedData.single || []), ...(uploadedData.double || [])];
-    const avgPrice = allHotels.reduce((sum, h) => {
-        const prices = Object.values(h.prices).filter(p => p > 0);
-        return sum + prices.reduce((s, p) => s + p, 0) / prices.length;
-    }, 0) / allHotels.length;
+    if (!mainHotelSingle && !mainHotelDouble) return null;
     
-    const avgRating = allHotels.reduce((sum, h) => sum + h.rating, 0) / allHotels.length;
-    const qualityThreshold = uploadedData.platformInfo.scale === 10 ? 7.9 : 3.9;
+    const mainHotel = mainHotelSingle || mainHotelDouble;
+    const hasBoothRoomTypes = mainHotelSingle && mainHotelDouble;
     
-    const mainAvgPrice = Object.values(mainHotel.prices).filter(p => p > 0)
-        .reduce((sum, p) => sum + p, 0) / Object.values(mainHotel.prices).filter(p => p > 0).length;
+    // Calculate averages for Singles
+    const singleHotels = uploadedData.single || [];
+    const singleAvgPrice = singleHotels.length > 0 ? 
+        singleHotels.reduce((sum, h) => {
+            const prices = Object.values(h.prices).filter(p => p > 0);
+            return sum + (prices.reduce((s, p) => s + p, 0) / prices.length);
+        }, 0) / singleHotels.length : 0;
+    
+    const singleAvgRating = singleHotels.length > 0 ?
+        singleHotels.reduce((sum, h) => sum + h.rating, 0) / singleHotels.length : 0;
+    
+    // Calculate averages for Doubles
+    const doubleHotels = uploadedData.double || [];
+    const doubleAvgPrice = doubleHotels.length > 0 ?
+        doubleHotels.reduce((sum, h) => {
+            const prices = Object.values(h.prices).filter(p => p > 0);
+            return sum + (prices.reduce((s, p) => s + p, 0) / prices.length);
+        }, 0) / doubleHotels.length : 0;
+    
+    const doubleAvgRating = doubleHotels.length > 0 ?
+        doubleHotels.reduce((sum, h) => sum + h.rating, 0) / doubleHotels.length : 0;
+    
+    const qualityThreshold = uploadedData.platformInfo.scale === 10 ? 8.0 : 4.0;
+    
+    // Main hotel prices
+    const mainSinglePrice = mainHotelSingle ? 
+        Object.values(mainHotelSingle.prices).filter(p => p > 0)
+            .reduce((sum, p) => sum + p, 0) / Object.values(mainHotelSingle.prices).filter(p => p > 0).length : 0;
+    
+    const mainDoublePrice = mainHotelDouble ?
+        Object.values(mainHotelDouble.prices).filter(p => p > 0)
+            .reduce((sum, p) => sum + p, 0) / Object.values(mainHotelDouble.prices).filter(p => p > 0).length : 0;
     
     return {
         mainHotel: mainHotel.name,
-        rating: mainHotel.rating,
-        avgPrice: mainAvgPrice,
-        marketAvgPrice: avgPrice,
-        marketAvgRating: avgRating,
-        qualityThreshold: qualityThreshold,
         reviews: mainHotel.reviews,
-        position: mainHotel.rating >= qualityThreshold && mainAvgPrice >= avgPrice ? 'Premium' :
-                 mainHotel.rating >= qualityThreshold && mainAvgPrice < avgPrice ? 'Value Leader' :
-                 mainHotel.rating < qualityThreshold && mainAvgPrice >= avgPrice ? 'Overpriced' : 'Budget',
-        recommendations: [
-            mainHotel.rating >= qualityThreshold ? 'Maintain high service quality' : 'Focus on improving guest satisfaction',
-            mainAvgPrice > avgPrice ? 'Premium pricing justified by rating' : 'Consider price optimization',
-            mainHotel.reviews < 100 ? 'Increase marketing for more reviews' : 'Good review volume'
-        ]
+        platform: uploadedData.platformInfo.name,
+        scale: uploadedData.platformInfo.scale,
+        qualityThreshold: qualityThreshold,
+        
+        // Single room data
+        hasSingle: !!mainHotelSingle,
+        singleRating: mainHotelSingle?.rating || 0,
+        singlePrice: mainSinglePrice,
+        singleMarketAvgPrice: singleAvgPrice,
+        singleMarketAvgRating: singleAvgRating,
+        singleCompetitors: singleHotels.filter(h => !h.isMain),
+        
+        // Double room data
+        hasDouble: !!mainHotelDouble,
+        doubleRating: mainHotelDouble?.rating || 0,
+        doublePrice: mainDoublePrice,
+        doubleMarketAvgPrice: doubleAvgPrice,
+        doubleMarketAvgRating: doubleAvgRating,
+        doubleCompetitors: doubleHotels.filter(h => !h.isMain),
+        
+        // Both room types
+        hasBothRoomTypes: hasBoothRoomTypes,
+        ratingDiscrepancy: hasBoothRoomTypes ? Math.abs(mainHotelSingle.rating - mainHotelDouble.rating) : 0
     };
 }
 
@@ -1187,46 +1222,261 @@ function displayAIAnalysis(analysis) {
         return;
     }
     
+    // Generate analysis sections
+    const priceRatingAnalysis = generatePriceRatingAnalysis(analysis);
+    const revenueOpportunity = generateRevenueOpportunity(analysis);
+    const competitiveThreats = generateCompetitiveThreats(analysis);
+    const rootCauseAnalysis = analysis.hasBothRoomTypes && analysis.ratingDiscrepancy >= 0.5 ? 
+        generateRootCauseAnalysis(analysis) : '';
+    
     const html = `
         <div class="analysis-section">
             <h3>📊 Current Market Position</h3>
             <div class="insight-card">
                 <p><strong>Your Hotel:</strong> ${analysis.mainHotel}</p>
-                <p><strong>Rating:</strong> ${analysis.rating.toFixed(1)}/${uploadedData.platformInfo.scale}</p>
-                <p><strong>Average Price:</strong> €${analysis.avgPrice.toFixed(2)}</p>
-                <p><strong>Reviews:</strong> ${analysis.reviews}</p>
-                <p><strong>Position:</strong> <span style="color: var(--primary); font-weight: 600;">${analysis.position}</span></p>
+                <p><strong>Platform:</strong> ${analysis.platform}</p>
+                <p><strong>Total Reviews:</strong> ${analysis.reviews}</p>
+                ${analysis.hasSingle ? `<p><strong>Single Room Rating:</strong> ${analysis.singleRating.toFixed(1)}/${analysis.scale} | Avg Price: €${analysis.singlePrice.toFixed(0)}</p>` : ''}
+                ${analysis.hasDouble ? `<p><strong>Double Room Rating:</strong> ${analysis.doubleRating.toFixed(1)}/${analysis.scale} | Avg Price: €${analysis.doublePrice.toFixed(0)}</p>` : ''}
             </div>
         </div>
         
-        <div class="analysis-section">
-            <h3>🎯 Market Comparison</h3>
-            <div class="insight-card">
-                <p><strong>Market Avg Price:</strong> €${analysis.marketAvgPrice.toFixed(2)}</p>
-                <p><strong>Market Avg Rating:</strong> ${analysis.marketAvgRating.toFixed(1)}/${uploadedData.platformInfo.scale}</p>
-                <p><strong>Quality Threshold:</strong> ${analysis.qualityThreshold.toFixed(1)}</p>
-                <p><strong>Price Difference:</strong> ${((analysis.avgPrice - analysis.marketAvgPrice) / analysis.marketAvgPrice * 100).toFixed(1)}%</p>
-                <p><strong>Rating vs Threshold:</strong> ${(analysis.rating - analysis.qualityThreshold).toFixed(1)} points</p>
-            </div>
-        </div>
-        
-        <div class="analysis-section">
-            <h3>💡 Strategic Recommendations</h3>
-            ${analysis.recommendations.map(rec => `
-                <div class="insight-card">
-                    <p>✓ ${rec}</p>
-                </div>
-            `).join('')}
-        </div>
+        ${priceRatingAnalysis}
+        ${revenueOpportunity}
+        ${competitiveThreats}
+        ${rootCauseAnalysis}
         
         <div style="text-align: center; margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); border-radius: 12px; color: white;">
             <p style="margin: 0; font-size: 0.9rem;">
-                This analysis is generated based on your competitive data and industry benchmarks.
+                💡 This analysis provides actionable insights based on your competitive data. For more detailed strategic consulting, contact our premium services.
             </p>
         </div>
     `;
     
     document.getElementById('aiAnalysisContent').innerHTML = html;
+}
+
+function generatePriceRatingAnalysis(analysis) {
+    let html = '<div class="analysis-section"><h3>🎯 Price-Rating Analysis</h3>';
+    
+    // Analyze Single rooms if available
+    if (analysis.hasSingle && analysis.singleCompetitors.length > 0) {
+        html += '<h4 style="color: var(--dark); font-size: 1.1rem; margin-top: 1rem;">Single Rooms:</h4>';
+        
+        // Sort competitors by rating
+        const sortedSingle = [...analysis.singleCompetitors]
+            .sort((a, b) => b.rating - a.rating)
+            .slice(0, 3); // Top 3
+        
+        sortedSingle.forEach(comp => {
+            const compPrice = Object.values(comp.prices).filter(p => p > 0)
+                .reduce((sum, p) => sum + p, 0) / Object.values(comp.prices).filter(p => p > 0).length;
+            const priceDiff = compPrice - analysis.singlePrice;
+            const ratingDiff = comp.rating - analysis.singleRating;
+            
+            let insight = '';
+            if (comp.rating > analysis.qualityThreshold && compPrice > analysis.singlePrice) {
+                insight = 'Premium positioning justified';
+            } else if (comp.rating > analysis.singleRating && compPrice < analysis.singlePrice) {
+                insight = `⚠️ Better rating at lower price (-€${Math.abs(priceDiff).toFixed(0)})`;
+            } else if (comp.rating < analysis.singleRating && compPrice > analysis.singlePrice) {
+                insight = 'You offer better value';
+            }
+            
+            html += `<div class="insight-card">
+                <p><strong>${comp.name}</strong> (${comp.rating.toFixed(1)}): €${compPrice.toFixed(0)} - ${insight}</p>
+            </div>`;
+        });
+        
+        // Your hotel assessment
+        const isPriceJustified = analysis.singleRating >= analysis.qualityThreshold;
+        const vsMarket = analysis.singlePrice > analysis.singleMarketAvgPrice ? 'above' : 'below';
+        html += `<div class="insight-card" style="background: ${isPriceJustified ? '#E8F5E9' : '#FFF3E0'}; border-left: 4px solid ${isPriceJustified ? '#4CAF50' : '#FF9800'};">
+            <p><strong>YOUR HOTEL (${analysis.singleRating.toFixed(1)}):</strong> €${analysis.singlePrice.toFixed(0)} - ${isPriceJustified ? '✅ Price justified by rating' : '⚠️ Consider rating improvement'} (${vsMarket} market avg €${analysis.singleMarketAvgPrice.toFixed(0)})</p>
+        </div>`;
+    }
+    
+    // Analyze Double rooms if available
+    if (analysis.hasDouble && analysis.doubleCompetitors.length > 0) {
+        html += '<h4 style="color: var(--dark); font-size: 1.1rem; margin-top: 1.5rem;">Double Rooms:</h4>';
+        
+        const sortedDouble = [...analysis.doubleCompetitors]
+            .sort((a, b) => b.rating - a.rating)
+            .slice(0, 3);
+        
+        sortedDouble.forEach(comp => {
+            const compPrice = Object.values(comp.prices).filter(p => p > 0)
+                .reduce((sum, p) => sum + p, 0) / Object.values(comp.prices).filter(p => p > 0).length;
+            const priceDiff = compPrice - analysis.doublePrice;
+            
+            let insight = '';
+            if (comp.rating > analysis.qualityThreshold && compPrice > analysis.doublePrice) {
+                insight = 'Premium positioning justified';
+            } else if (comp.rating > analysis.doubleRating && compPrice < analysis.doublePrice) {
+                insight = `⚠️ Better rating at lower price (-€${Math.abs(priceDiff).toFixed(0)})`;
+            } else if (comp.rating < analysis.doubleRating && compPrice > analysis.doublePrice) {
+                insight = 'You offer better value';
+            }
+            
+            html += `<div class="insight-card">
+                <p><strong>${comp.name}</strong> (${comp.rating.toFixed(1)}): €${compPrice.toFixed(0)} - ${insight}</p>
+            </div>`;
+        });
+        
+        const isPriceJustified = analysis.doubleRating >= analysis.qualityThreshold;
+        const vsMarket = analysis.doublePrice > analysis.doubleMarketAvgPrice ? 'above' : 'below';
+        html += `<div class="insight-card" style="background: ${isPriceJustified ? '#E8F5E9' : '#FFF3E0'}; border-left: 4px solid ${isPriceJustified ? '#4CAF50' : '#FF9800'};">
+            <p><strong>YOUR HOTEL (${analysis.doubleRating.toFixed(1)}):</strong> €${analysis.doublePrice.toFixed(0)} - ${isPriceJustified ? '✅ Price justified by rating' : '⚠️ Consider rating improvement'} (${vsMarket} market avg €${analysis.doubleMarketAvgPrice.toFixed(0)})</p>
+        </div>`;
+    }
+    
+    html += '</div>';
+    return html;
+}
+
+function generateRevenueOpportunity(analysis) {
+    let html = '<div class="analysis-section"><h3>💰 Revenue Opportunity</h3>';
+    
+    const pricePerRatingPoint = 10; // €10-15 per 0.1 rating point above threshold
+    
+    // Singles analysis
+    if (analysis.hasSingle) {
+        const optimalSinglePrice = analysis.singleRating >= analysis.qualityThreshold ?
+            analysis.singleMarketAvgPrice + ((analysis.singleRating - analysis.qualityThreshold) * pricePerRatingPoint * 10) :
+            analysis.singleMarketAvgPrice * (analysis.singleRating / analysis.qualityThreshold) * 0.9;
+        
+        const priceDiff = optimalSinglePrice - analysis.singlePrice;
+        const percentChange = (priceDiff / analysis.singlePrice * 100);
+        
+        if (Math.abs(priceDiff) > 5) {
+            html += `<div class="insight-card" style="background: ${priceDiff > 0 ? '#E8F5E9' : '#FFF3E0'};">
+                <p><strong>Single Rooms:</strong> With rating ${analysis.singleRating.toFixed(1)}, optimal price is <strong>€${optimalSinglePrice.toFixed(0)}</strong></p>
+                <p>Current: €${analysis.singlePrice.toFixed(0)} → Suggested: €${optimalSinglePrice.toFixed(0)} (<strong>${priceDiff > 0 ? '+' : ''}€${priceDiff.toFixed(0)}/night</strong>, ${percentChange > 0 ? '+' : ''}${percentChange.toFixed(1)}%)</p>
+                <p style="font-size: 0.9rem; color: var(--gray); margin-top: 0.5rem;">💡 Annual impact (50% occupancy): ${priceDiff > 0 ? '+' : ''}€${(priceDiff * 182.5).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
+            </div>`;
+        } else {
+            html += `<div class="insight-card" style="background: #E8F5E9;">
+                <p><strong>Single Rooms:</strong> ✅ Current price (€${analysis.singlePrice.toFixed(0)}) is well-optimized for rating ${analysis.singleRating.toFixed(1)}</p>
+            </div>`;
+        }
+    }
+    
+    // Doubles analysis
+    if (analysis.hasDouble) {
+        const optimalDoublePrice = analysis.doubleRating >= analysis.qualityThreshold ?
+            analysis.doubleMarketAvgPrice + ((analysis.doubleRating - analysis.qualityThreshold) * pricePerRatingPoint * 10) :
+            analysis.doubleMarketAvgPrice * (analysis.doubleRating / analysis.qualityThreshold) * 0.9;
+        
+        const priceDiff = optimalDoublePrice - analysis.doublePrice;
+        const percentChange = (priceDiff / analysis.doublePrice * 100);
+        
+        if (Math.abs(priceDiff) > 5) {
+            html += `<div class="insight-card" style="background: ${priceDiff > 0 ? '#E8F5E9' : '#FFF3E0'};">
+                <p><strong>Double Rooms:</strong> With rating ${analysis.doubleRating.toFixed(1)}, optimal price is <strong>€${optimalDoublePrice.toFixed(0)}</strong></p>
+                <p>Current: €${analysis.doublePrice.toFixed(0)} → Suggested: €${optimalDoublePrice.toFixed(0)} (<strong>${priceDiff > 0 ? '+' : ''}€${priceDiff.toFixed(0)}/night</strong>, ${percentChange > 0 ? '+' : ''}${percentChange.toFixed(1)}%)</p>
+                <p style="font-size: 0.9rem; color: var(--gray); margin-top: 0.5rem;">💡 Annual impact (50% occupancy): ${priceDiff > 0 ? '+' : ''}€${(priceDiff * 182.5).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</p>
+            </div>`;
+        } else {
+            html += `<div class="insight-card" style="background: #E8F5E9;">
+                <p><strong>Double Rooms:</strong> ✅ Current price (€${analysis.doublePrice.toFixed(0)}) is well-optimized for rating ${analysis.doubleRating.toFixed(1)}</p>
+            </div>`;
+        }
+    }
+    
+    html += '</div>';
+    return html;
+}
+
+function generateCompetitiveThreats(analysis) {
+    let html = '<div class="analysis-section"><h3>🚨 Competitive Threats</h3>';
+    
+    let threatsFound = false;
+    
+    // Singles threats
+    if (analysis.hasSingle && analysis.singleCompetitors.length > 0) {
+        const threats = analysis.singleCompetitors.filter(comp => {
+            const compPrice = Object.values(comp.prices).filter(p => p > 0)
+                .reduce((sum, p) => sum + p, 0) / Object.values(comp.prices).filter(p => p > 0).length;
+            return comp.rating > analysis.singleRating && compPrice <= analysis.singlePrice;
+        }).sort((a, b) => b.rating - a.rating);
+        
+        if (threats.length > 0) {
+            threatsFound = true;
+            html += '<h4 style="color: var(--danger); font-size: 1.1rem; margin-top: 1rem;">⚠️ Single Rooms:</h4>';
+            
+            threats.slice(0, 2).forEach(threat => {
+                const compPrice = Object.values(threat.prices).filter(p => p > 0)
+                    .reduce((sum, p) => sum + p, 0) / Object.values(threat.prices).filter(p => p > 0).length;
+                const priceDiff = ((analysis.singlePrice - compPrice) / compPrice * 100);
+                const ratingDiff = threat.rating - analysis.singleRating;
+                
+                html += `<div class="insight-card" style="background: #FFEBEE; border-left: 4px solid #F44336;">
+                    <p><strong>${threat.name}</strong> (${threat.rating.toFixed(1)}) offers BETTER rating (+${ratingDiff.toFixed(1)}) at ${compPrice < analysis.singlePrice ? 'LOWER' : 'SAME'} price (€${compPrice.toFixed(0)} vs your €${analysis.singlePrice.toFixed(0)})</p>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">🎯 Risk: Losing price-sensitive customers seeking quality</p>
+                </div>`;
+            });
+        }
+    }
+    
+    // Doubles threats
+    if (analysis.hasDouble && analysis.doubleCompetitors.length > 0) {
+        const threats = analysis.doubleCompetitors.filter(comp => {
+            const compPrice = Object.values(comp.prices).filter(p => p > 0)
+                .reduce((sum, p) => sum + p, 0) / Object.values(comp.prices).filter(p => p > 0).length;
+            return comp.rating > analysis.doubleRating && compPrice <= analysis.doublePrice;
+        }).sort((a, b) => b.rating - a.rating);
+        
+        if (threats.length > 0) {
+            threatsFound = true;
+            html += '<h4 style="color: var(--danger); font-size: 1.1rem; margin-top: 1.5rem;">⚠️ Double Rooms:</h4>';
+            
+            threats.slice(0, 2).forEach(threat => {
+                const compPrice = Object.values(threat.prices).filter(p => p > 0)
+                    .reduce((sum, p) => sum + p, 0) / Object.values(threat.prices).filter(p => p > 0).length;
+                const priceDiff = ((analysis.doublePrice - compPrice) / compPrice * 100);
+                const ratingDiff = threat.rating - analysis.doubleRating;
+                
+                html += `<div class="insight-card" style="background: #FFEBEE; border-left: 4px solid #F44336;">
+                    <p><strong>${threat.name}</strong> (${threat.rating.toFixed(1)}) offers BETTER rating (+${ratingDiff.toFixed(1)}) at ${compPrice < analysis.doublePrice ? 'LOWER' : 'SAME'} price (€${compPrice.toFixed(0)} vs your €${analysis.doublePrice.toFixed(0)})</p>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">🎯 Risk: Losing price-sensitive customers seeking quality</p>
+                </div>`;
+            });
+        }
+    }
+    
+    if (!threatsFound) {
+        html += `<div class="insight-card" style="background: #E8F5E9; border-left: 4px solid #4CAF50;">
+            <p>✅ <strong>Strong Position:</strong> No immediate competitive threats detected. Your pricing and rating combination is competitive.</p>
+        </div>`;
+    }
+    
+    html += '</div>';
+    return html;
+}
+
+function generateRootCauseAnalysis(analysis) {
+    const higherRating = analysis.singleRating > analysis.doubleRating ? 'Single' : 'Double';
+    const lowerRating = analysis.singleRating > analysis.doubleRating ? 'Double' : 'Single';
+    const ratingGap = Math.abs(analysis.singleRating - analysis.doubleRating);
+    
+    return `
+        <div class="analysis-section">
+            <h3>❓ Root Cause Analysis</h3>
+            <div class="insight-card" style="background: #FFF9C4; border-left: 4px solid #FBC02D;">
+                <p><strong>Rating Discrepancy Detected:</strong></p>
+                <p>Single Rooms: ${analysis.singleRating.toFixed(1)} vs Double Rooms: ${analysis.doubleRating.toFixed(1)} (Δ ${ratingGap.toFixed(1)} points)</p>
+                <p style="margin-top: 1rem;"><strong>Possible reasons for different ratings:</strong></p>
+                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                    <li>${higherRating} rooms may have better renovation/condition</li>
+                    <li>${lowerRating} rooms might be smaller or have fewer amenities</li>
+                    <li>Different guest expectations for each room type</li>
+                    <li>Location/view differences within the property</li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>🔍 Recommended Action:</strong></p>
+                <p>Review ${lowerRating} room guest reviews on ${analysis.platform} to identify recurring complaints (size, noise, bathroom, etc.) and prioritize improvements.</p>
+            </div>
+        </div>
+    `;
 }
 
 // ============================================

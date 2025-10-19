@@ -1,7 +1,6 @@
 MARITING - HOTEL COMPETITION ANALYSIS TEMPLATE,,,,,,,,,,
 ,,,,,,,,,,
-Platform:,(Write the platform name exactly as shown below),,,,,,,,,,
-Available platforms:,Booking,Airbnb,Expedia,Google Hotels,TripAdvisor,Trivago,,,
+Platform:,"(e.g. Booking, Airbnb, Expedia, Google Hotels, TripAdvisor, Trivago)",,,,,,,,,,
 ,,,,,,,,,,
 SINGLE ROOMS PRICING ANALYSIS,,,,,,,,,,
 Hotel Name,Rating,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday,Reviews Num
