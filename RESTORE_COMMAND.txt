@@ -1,0 +1,7 @@
+Para restaurar el index.html ejecuta en terminal:
+
+cd "/Users/victorjrp92/Desktop/Mariting Beta 3"
+cp index_BACKUP_FINAL.html index.html
+
+O si prefieres:
+cp index_backup_v2.3.0_before_auth.html index.html
